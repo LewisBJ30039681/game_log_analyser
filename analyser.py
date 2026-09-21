@@ -1,5 +1,14 @@
 from collections import Counter
 
+def main():
+    log_path = input("Enter the path to the log file: ")
+    validate_log_file(log_path)
+    lines = read_log_file(log_path)
+    print(f"Successfully loaded {len(lines)} lines from the log file.")
+    error_count, warning_count, errors, warnings, error_frequency, warning_frequency = analyse_log(lines)
+    display_results(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)
+    save_report(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)
+
 def read_log_file(log_path):
     try:
         with open(log_path, 'r') as log_file:
@@ -27,7 +36,8 @@ def analyse_log(lines):
             errors.append(line.strip())
 
             error_message = line.split("ERROR:", 1)[1].strip()
-            error_messages.append(error_message)
+            if error_message:
+                error_messages.append(error_message)
 
             
         elif "WARNING:" in line:
@@ -35,7 +45,8 @@ def analyse_log(lines):
             warnings.append(line.strip())
 
             warning_message = line.split("WARNING:", 1)[1].strip()
-            warning_messages.append(warning_message)
+            if warning_message:
+                warning_messages.append(warning_message)
 
     error_frequency = Counter(error_messages)
     warning_frequency = Counter(warning_messages)
@@ -100,10 +111,5 @@ def validate_log_file(log_path):
         print("Error: The log file must have a .log extension.")
         exit(1)
 
-log_path = input("Enter the path to the log file: ")
-validate_log_file(log_path)
-lines = read_log_file(log_path)
-print(f"Successfully loaded {len(lines)} lines from the log file.")
-error_count, warning_count, errors, warnings, error_frequency, warning_frequency = analyse_log(lines)
-display_results(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)
-save_report(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)
+if __name__ == "__main__":
+    main()
