@@ -64,8 +64,40 @@ def display_results(error_count, warning_count, errors, warnings, error_frequenc
         if count > 1:
             print(f"{message} - occurred {count} times")
 
+def save_report(error_count, warning_count, errors, warnings, error_frequency, warning_frequency):
+    with open("analysis_report.txt", "w") as report_file:
+        report_file.write("Game Log Analysis Report\n")
+        report_file.write("========================\n\n")
+        report_file.write(f"Errors found: {error_count}\n")
+        report_file.write(f"Warnings found: {warning_count}\n\n")
+
+        report_file.write("List of Errors:\n")
+        for error in errors:
+            report_file.write(f"{error}\n")
+
+        report_file.write("\nList of Warnings:\n")
+        for warning in warnings:
+            report_file.write(f"{warning}\n")
+
+        report_file.write("\nRepeated Errors:\n")
+        if any(count > 1 for count in error_frequency.values()):
+            for message, count in error_frequency.items():
+                if count > 1:
+                    report_file.write(f"{message} - occurred {count} times\n")
+        else:
+            report_file.write("No repeated errors found.\n")
+
+        report_file.write("\nRepeated Warnings:\n")
+        if any(count > 1 for count in warning_frequency.values()):
+            for message, count in warning_frequency.items():
+                if count > 1:
+                    report_file.write(f"{message} - occurred {count} times\n")
+        else:
+            report_file.write("No repeated warnings found.\n")
+
 log_path = input("Enter the path to the log file: ")
 lines = read_log_file(log_path)
 print(f"Successfully loaded {len(lines)} lines from the log file.")
 error_count, warning_count, errors, warnings, error_frequency, warning_frequency = analyse_log(lines)
 display_results(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)
+save_report(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)

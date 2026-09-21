@@ -1,0 +1,21 @@
+Game Log Analysis Report
+========================
+
+Errors found: 3
+Warnings found: 3
+
+List of Errors:
+[time] ERROR: apples failed to grow
+[time] ERROR: apples failed to grow ah
+[time] ERROR:
+
+List of Warnings:
+[time] WARNING: bananas are not ripe
+[time] WARNING: bananas are not ripe ah
+[time] WARNING:
+
+Repeated Errors:
+No repeated errors found.
+
+Repeated Warnings:
+No repeated warnings found.
