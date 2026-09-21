@@ -18,10 +18,11 @@ I created this project to explore how log analysis can be used to quickly identi
 - Python 3 (no external python packages are required)
 - Clone the repo and navigate to the project directory
 - Run:
+
 ```bash
 python analyser.py
 
-when promted use sample_logs/sample.log
+when promted enter: sample_logs/sample.log
 results will be displayed in the terminal and saved to analysis_report.txt
 
 # Testing
@@ -37,10 +38,9 @@ The tests currently cover:
 
 Run the tests with:
 
-```bash
 python -m unittest test_analyser.py
 
-## Project Structure
+# Project Structure
 
 ```text
 game_log_analyser/
