@@ -2,8 +2,16 @@ from collections import Counter
 
 log_path = input("Enter the path to the log file: ")
 
-with open(log_path, 'r') as log_file:
-    lines = log_file.readlines()
+try:
+    with open(log_path, 'r') as log_file:
+        lines = log_file.readlines()
+except FileNotFoundError:
+    print(f"Error: The file at '{log_path}' was not found.")
+    exit(1)
+
+except PermissionError:
+    print(f"Error: Permission denied when trying to read the file at '{log_path}'.")
+    exit(1)
 
 print(f"Successfully loaded {len(lines)} lines from the log file.")
 
