@@ -1,6 +1,7 @@
 from collections import Counter
 
 def main():
+    # Main function to run the log analysis
     log_path = input("Enter the path to the log file: ")
     validate_log_file(log_path)
     lines = read_log_file(log_path)
@@ -10,6 +11,7 @@ def main():
     save_report(error_count, warning_count, errors, warnings, error_frequency, warning_frequency)
 
 def read_log_file(log_path):
+    # Read the log file and return its lines, handling potential errors
     try:
         with open(log_path, 'r') as log_file:
             lines = log_file.readlines()
@@ -22,6 +24,7 @@ def read_log_file(log_path):
     return lines
 
 def analyse_log(lines):
+    # Analyse the log lines to count errors and warnings, and track their frequency
     error_count = 0
     warning_count = 0
 
@@ -38,7 +41,6 @@ def analyse_log(lines):
             error_message = line.split("ERROR:", 1)[1].strip()
             if error_message:
                 error_messages.append(error_message)
-
             
         elif "WARNING:" in line:
             warning_count += 1
@@ -54,6 +56,7 @@ def analyse_log(lines):
     return error_count, warning_count, errors, warnings, error_frequency, warning_frequency
 
 def display_results(error_count, warning_count, errors, warnings, error_frequency, warning_frequency):
+    # Display the analysis results in a readable format
     print(f"Errors found: {error_count}")
     print(f"Warnings found: {warning_count}")
 
@@ -76,6 +79,7 @@ def display_results(error_count, warning_count, errors, warnings, error_frequenc
             print(f"{message} - occurred {count} times")
 
 def save_report(error_count, warning_count, errors, warnings, error_frequency, warning_frequency):
+    # Save the analysis report to a text file
     with open("analysis_report.txt", "w") as report_file:
         report_file.write("Game Log Analysis Report\n")
         report_file.write("========================\n\n")
@@ -107,9 +111,11 @@ def save_report(error_count, warning_count, errors, warnings, error_frequency, w
             report_file.write("No repeated warnings found.\n")
 
 def validate_log_file(log_path):
+    # Validate that the log file has a .log extension
     if not log_path.lower().endswith('.log'):
         print("Error: The log file must have a .log extension.")
         exit(1)
 
+# Run the main function if this script is executed directly
 if __name__ == "__main__":
     main()

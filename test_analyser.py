@@ -3,6 +3,7 @@ from analyser import analyse_log
 
 class TestAnalyseLog(unittest.TestCase):
     def test_analyse_log(self):
+        # Test standard log lines with errors and warnings
         lines = [
             "[time] ERROR: apples failed to grow",
             "[time] INFO: line2",
@@ -45,6 +46,7 @@ class TestAnalyseLog(unittest.TestCase):
         self.assertEqual(dict(result[5]), expected_warning_frequency)
 
     def test_no_errors_or_warnings(self):
+        # Tets that the function correctly handles a log with no errors or warnings
         lines = [
             "[time] INFO: line1",
             "[time] INFO: line2"
@@ -67,6 +69,7 @@ class TestAnalyseLog(unittest.TestCase):
         self.assertEqual(dict(result[5]), expected_warning_frequency)
 
     def test_repeated_errors_and_warnings(self):
+        # Test that the function correctly counts repeated errors and warnings
         lines = [
             "[time] ERROR: apples failed to grow",
             "[time] ERROR: apples failed to grow",
