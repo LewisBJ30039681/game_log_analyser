@@ -95,7 +95,13 @@ def save_report(error_count, warning_count, errors, warnings, error_frequency, w
         else:
             report_file.write("No repeated warnings found.\n")
 
+def validate_log_file(log_path):
+    if not log_path.lower().endswith('.log'):
+        print("Error: The log file must have a .log extension.")
+        exit(1)
+
 log_path = input("Enter the path to the log file: ")
+validate_log_file(log_path)
 lines = read_log_file(log_path)
 print(f"Successfully loaded {len(lines)} lines from the log file.")
 error_count, warning_count, errors, warnings, error_frequency, warning_frequency = analyse_log(lines)
