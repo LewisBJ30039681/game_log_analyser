@@ -43,3 +43,59 @@ class TestAnalyseLog(unittest.TestCase):
         self.assertEqual(result[3], expected_warnings)
         self.assertEqual(dict(result[4]), expected_error_frequency)
         self.assertEqual(dict(result[5]), expected_warning_frequency)
+
+    def test_no_errors_or_warnings(self):
+        lines = [
+            "[time] INFO: line1",
+            "[time] INFO: line2"
+        ]
+
+        expected_error_count = 0
+        expected_warning_count = 0
+        expected_errors = []
+        expected_warnings = []
+        expected_error_frequency = {}
+        expected_warning_frequency = {}
+
+        result = analyse_log(lines)
+
+        self.assertEqual(result[0], expected_error_count)
+        self.assertEqual(result[1], expected_warning_count)
+        self.assertEqual(result[2], expected_errors)
+        self.assertEqual(result[3], expected_warnings)
+        self.assertEqual(dict(result[4]), expected_error_frequency)
+        self.assertEqual(dict(result[5]), expected_warning_frequency)
+
+    def test_repeated_errors_and_warnings(self):
+        lines = [
+            "[time] ERROR: apples failed to grow",
+            "[time] ERROR: apples failed to grow",
+            "[time] WARNING: bananas are not ripe",
+            "[time] WARNING: bananas are not ripe"
+        ]
+
+        expected_error_count = 2
+        expected_warning_count = 2
+        expected_errors = [
+            "[time] ERROR: apples failed to grow",
+            "[time] ERROR: apples failed to grow"
+        ]
+        expected_warnings = [
+            "[time] WARNING: bananas are not ripe",
+            "[time] WARNING: bananas are not ripe"
+        ]
+        expected_error_frequency = {
+            "apples failed to grow": 2
+        }
+        expected_warning_frequency = {
+            "bananas are not ripe": 2
+        }
+
+        result = analyse_log(lines)
+
+        self.assertEqual(result[0], expected_error_count)
+        self.assertEqual(result[1], expected_warning_count)
+        self.assertEqual(result[2], expected_errors)
+        self.assertEqual(result[3], expected_warnings)
+        self.assertEqual(dict(result[4]), expected_error_frequency)
+        self.assertEqual(dict(result[5]), expected_warning_frequency)
