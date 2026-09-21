@@ -60,6 +60,8 @@ Areas I researched included:
 
 I tested the concepts within the project rather than assuming they worked as expected. This included deliberately providing invalid file paths, using logs with empty error and warning messages, using logs with no errors or warnings, and creating repeated messages to verify the frequency analysis.
 
+I primarily used ChatGPT as an interactive research and learning tool when I encountered unfamiliar concepts or needed clarification. Details of how AI was used throughout the project are documented separately in AI.md.
+
 # Lessons Learned
 
 The project reinforced the importance of building software incrementally and testing changes as they are introduced. Starting with a simple log reader made it easier to add analysis, reporting, validation and automated testing without making the program unnecessarily complex.
